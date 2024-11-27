@@ -29,7 +29,7 @@ public class ProductModel
 
     public BrandModel Brand { get; set; }
 
-    public List<ProductPrice> Prices { get; set; }
+    public List<ProductPriceModel> Prices { get; set; }
 
     [NotMapped] [FileExtension] public IFormFile ImageUpload { get; set; }
 }

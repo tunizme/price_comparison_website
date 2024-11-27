@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace price_comparison.Models;
 
-public class ProductPrice
+public class ProductPriceModel
 {
     [Key]
     public int Id { get; set; }

@@ -305,16 +305,180 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\007e98cf-bee9-476d-839b-20b29c0c7c04_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\007e98cf-bee9-476d-839b-20b29c0c7c04_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\13fd0b59-f026-47c1-b0aa-5c33f47ab347_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\13fd0b59-f026-47c1-b0aa-5c33f47ab347_jinx-arcane-season-2-lol.jpg"
+    },
+    {
       "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\148a0078-70fe-4ff7-84c6-3df013b4445a_jinx-arcane-season-2-lol.jpg",
       "PackagePath": "staticwebassets\\media\\products\\148a0078-70fe-4ff7-84c6-3df013b4445a_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\16fb0e7e-9bef-4d2e-9474-36d1aa5ba614_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\16fb0e7e-9bef-4d2e-9474-36d1aa5ba614_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\1ba286be-d752-4d61-afb6-029636d760ad_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\1ba286be-d752-4d61-afb6-029636d760ad_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\27377a29-21ff-400d-804d-bb26328d722e_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\27377a29-21ff-400d-804d-bb26328d722e_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\2979521b-9962-4432-a82a-1b777ac13384_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\2979521b-9962-4432-a82a-1b777ac13384_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\2ab46d86-323f-49e6-8376-6ea4f47d3c41_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\2ab46d86-323f-49e6-8376-6ea4f47d3c41_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\2e0564ca-a017-4f9e-a7f7-20cb326e9f0b_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\2e0564ca-a017-4f9e-a7f7-20cb326e9f0b_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\303e9221-a001-4070-a00e-20c2c577803c_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\303e9221-a001-4070-a00e-20c2c577803c_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\422906a6-b900-491d-ad68-037ad0645fb6_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\422906a6-b900-491d-ad68-037ad0645fb6_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\49089d08-b46f-47a5-8bc6-c2ee22c1fb14_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\49089d08-b46f-47a5-8bc6-c2ee22c1fb14_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\527b78b7-3428-4a34-80d8-4108bd7be521_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\527b78b7-3428-4a34-80d8-4108bd7be521_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\57437761-fc31-4360-9742-ca1ec958e45c_de7e4e2f-b01d-47c1-ae94-f45237286c6f.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\57437761-fc31-4360-9742-ca1ec958e45c_de7e4e2f-b01d-47c1-ae94-f45237286c6f.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\5ae8c1ed-0583-475c-b462-c17155ff50c9_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\5ae8c1ed-0583-475c-b462-c17155ff50c9_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\628a7371-6a91-4825-8295-e3b37b29def4_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\628a7371-6a91-4825-8295-e3b37b29def4_jinx-arcane-season-2-lol.jpg"
     },
     {
       "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\659d26a2-1207-4f52-ba80-a3cd635676c4_image.jpg",
       "PackagePath": "staticwebassets\\media\\products\\659d26a2-1207-4f52-ba80-a3cd635676c4_image.jpg"
     },
     {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\67b195b6-9ae2-4329-aebc-44cf0559e2ad_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\67b195b6-9ae2-4329-aebc-44cf0559e2ad_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\7236bdfc-023b-43a3-8431-d53e8ae280cd_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\7236bdfc-023b-43a3-8431-d53e8ae280cd_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\7310d44e-36ca-46b1-8ef7-5aad4b47b2ad_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\7310d44e-36ca-46b1-8ef7-5aad4b47b2ad_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\73b48518-fbd9-4832-bc58-e3097061f0bf_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\73b48518-fbd9-4832-bc58-e3097061f0bf_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\7456aa49-feaf-45bc-8156-c495e9349e04_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\7456aa49-feaf-45bc-8156-c495e9349e04_jinx-arcane-season-2-lol.jpg"
+    },
+    {
       "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\75153c21-316f-4151-84c5-6bb3957e05e5_jinx-arcane-season-2-lol.jpg",
       "PackagePath": "staticwebassets\\media\\products\\75153c21-316f-4151-84c5-6bb3957e05e5_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\78da44a8-6b46-4f2f-993c-bd9765909951_images.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\78da44a8-6b46-4f2f-993c-bd9765909951_images.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\7c8f9454-9f51-4b69-979e-9da7252b1862_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\7c8f9454-9f51-4b69-979e-9da7252b1862_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\7e92a596-7e00-4b8d-8453-6d2fcd1e7cf2_images.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\7e92a596-7e00-4b8d-8453-6d2fcd1e7cf2_images.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\802f1d10-c217-4cdb-89f7-54569992abac_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\802f1d10-c217-4cdb-89f7-54569992abac_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\810069e5-527b-4643-980c-6ca466ab1dab_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\810069e5-527b-4643-980c-6ca466ab1dab_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\881f4ccc-4811-4c9d-b6e7-bda6fa8c4315_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\881f4ccc-4811-4c9d-b6e7-bda6fa8c4315_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\8929f11d-e9c5-4510-8783-e24996f1fcf9_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\8929f11d-e9c5-4510-8783-e24996f1fcf9_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\8f4a74b5-f48b-4237-a5b3-5fdca2019927_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\8f4a74b5-f48b-4237-a5b3-5fdca2019927_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\a1964c70-5d35-42e8-97ca-2a3d0b85e555_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\a1964c70-5d35-42e8-97ca-2a3d0b85e555_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\b8d08604-c076-4536-b0f7-164d2d96957a_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\b8d08604-c076-4536-b0f7-164d2d96957a_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\b94e14d8-5422-4c45-bafa-b9e6d302a5df_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\b94e14d8-5422-4c45-bafa-b9e6d302a5df_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\b957bd6b-8c0a-4bcc-97d0-e7e4e769bd31_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\b957bd6b-8c0a-4bcc-97d0-e7e4e769bd31_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\bbf5b3ea-9385-4ad4-a036-da1e105a39c6_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\bbf5b3ea-9385-4ad4-a036-da1e105a39c6_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\bd907793-45ba-4bc3-8b1b-12309e7a04bc_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\bd907793-45ba-4bc3-8b1b-12309e7a04bc_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\d39597f6-4291-43cb-9240-f9bd1e194f28_images.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\d39597f6-4291-43cb-9240-f9bd1e194f28_images.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\d3d4eb75-358d-46d7-9f65-4f0f7b656f1c_image.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\d3d4eb75-358d-46d7-9f65-4f0f7b656f1c_image.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\d3f1c33b-3b11-489f-944a-3c95cd36152e_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\d3f1c33b-3b11-489f-944a-3c95cd36152e_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\d6b6cb56-0607-4259-86e1-3719389b52e8_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\d6b6cb56-0607-4259-86e1-3719389b52e8_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\d8d1cb0f-348b-4137-9f83-e9d0b58443be_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\d8d1cb0f-348b-4137-9f83-e9d0b58443be_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\e8e999b8-70c8-4e8f-b520-c5f28395517d_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\e8e999b8-70c8-4e8f-b520-c5f28395517d_jinx-arcane-season-2-lol.jpg"
+    },
+    {
+      "Id": "D:\\st_final_project\\price_comparison\\wwwroot\\media\\products\\f85e57cd-76bf-4717-b15e-f51450ccc543_jinx-arcane-season-2-lol.jpg",
+      "PackagePath": "staticwebassets\\media\\products\\f85e57cd-76bf-4717-b15e-f51450ccc543_jinx-arcane-season-2-lol.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.price_comparison.props",

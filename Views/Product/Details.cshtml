@@ -1,112 +1,135 @@
-﻿<div class="row">
-    <div class="col">
-        <div class="product-details"><!--product-details-->
-            <div class="col-sm-3">
-                <div class="view-product">
-                    <img src="~/images/image.jpg" alt="" width="100%" />
+﻿@model price_comparison.Models.ProductModel
+
+<div class="col">
+    <div class="product-details"><!--product-details-->
+        <div class="col-sm-3">
+            <div class="view-product">
+                <img src="~/images/image.jpg" alt="" width="100%"/>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="product-information"><!--/product-information-->
+                <img src="images/product-details/new.jpg" class="newarrival" alt=""/>
+                <h2>@Model.Name</h2>
+                <p>Ra mắt vào 2023, cấu hình Apple iPhone 15 Pro Max gồm dung lượng pin 4441mAh, màn hình 6.7", độ phân
+                    giải 2796 x 1290pixels, camera selfie 12MP và camera chính 48 + 12 + 12MP. Giá Apple iPhone 15 Pro
+                    Max hiện nay là 28,690,000.00VND tại Hoang Ha Mobile</p>
+            </div><!--/product-information-->
+        </div>
+    </div><!--/product-details-->
+
+
+    <div class="product-price">
+        @foreach (var productPrice in Model.Prices)
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <span>
+                        @productPrice.ShopName
+                    </span>
+                </div> <div class="col-sm-3">
+                    <h4>
+                        @productPrice.Price.ToString("#,##0") đ
+                    </h4>
+                </div> <div class="col-sm-3">
+                    <a href="@productPrice.ShopUrl" target="_blank">
+                        Xem giá mới nhất
+                    </a>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="product-information"><!--/product-information-->
-                    <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                    <h2>@Model.Name</h2>
-                    <p>Ra mắt vào 2023, cấu hình Apple iPhone 15 Pro Max gồm dung lượng pin 4441mAh, màn hình 6.7", độ phân giải 2796 x 1290pixels, camera selfie 12MP và camera chính 48 + 12 + 12MP. Giá Apple iPhone 15 Pro Max hiện nay là 28,690,000.00VND tại Hoang Ha Mobile</p>
-                </div><!--/product-information-->
-            </div>
-        </div><!--/product-details-->
-
-      
-
-        <div class="recommended_items"><!--recommended_items-->
-            <h2 class="title text-center">recommended items</h2>
-
-            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="images/home/recommend1.jpg" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="images/home/recommend2.jpg" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="images/home/recommend3.jpg" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="images/home/recommend1.jpg" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="images/home/recommend2.jpg" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="images/home/recommend3.jpg" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-        </div><!--/recommended_items-->
-
+        }
     </div>
+
+    @* <div class="recommended_items"><!--recommended_items--> *@
+    @*     <h2 class="title text-center">recommended items</h2> *@
+    @* *@
+    @*     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel"> *@
+    @*         <div class="carousel-inner"> *@
+    @*             <div class="item active"> *@
+    @*                 <div class="col-sm-4"> *@
+    @*                     <div class="product-image-wrapper"> *@
+    @*                         <div class="single-products"> *@
+    @*                             <div class="productinfo text-center"> *@
+    @*                                 <img src="images/home/recommend1.jpg" alt="" /> *@
+    @*                                 <h2>$56</h2> *@
+    @*                                 <p>Easy Polo Black Edition</p> *@
+    @*                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button> *@
+    @*                             </div> *@
+    @*                         </div> *@
+    @*                     </div> *@
+    @*                 </div> *@
+    @*                 <div class="col-sm-4"> *@
+    @*                     <div class="product-image-wrapper"> *@
+    @*                         <div class="single-products"> *@
+    @*                             <div class="productinfo text-center"> *@
+    @*                                 <img src="images/home/recommend2.jpg" alt="" /> *@
+    @*                                 <h2>$56</h2> *@
+    @*                                 <p>Easy Polo Black Edition</p> *@
+    @*                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button> *@
+    @*                             </div> *@
+    @*                         </div> *@
+    @*                     </div> *@
+    @*                 </div> *@
+    @*                 <div class="col-sm-4"> *@
+    @*                     <div class="product-image-wrapper"> *@
+    @*                         <div class="single-products"> *@
+    @*                             <div class="productinfo text-center"> *@
+    @*                                 <img src="images/home/recommend3.jpg" alt="" /> *@
+    @*                                 <h2>$56</h2> *@
+    @*                                 <p>Easy Polo Black Edition</p> *@
+    @*                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button> *@
+    @*                             </div> *@
+    @*                         </div> *@
+    @*                     </div> *@
+    @*                 </div> *@
+    @*             </div> *@
+    @*             <div class="item"> *@
+    @*                 <div class="col-sm-4"> *@
+    @*                     <div class="product-image-wrapper"> *@
+    @*                         <div class="single-products"> *@
+    @*                             <div class="productinfo text-center"> *@
+    @*                                 <img src="images/home/recommend1.jpg" alt="" /> *@
+    @*                                 <h2>$56</h2> *@
+    @*                                 <p>Easy Polo Black Edition</p> *@
+    @*                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button> *@
+    @*                             </div> *@
+    @*                         </div> *@
+    @*                     </div> *@
+    @*                 </div> *@
+    @*                 <div class="col-sm-4"> *@
+    @*                     <div class="product-image-wrapper"> *@
+    @*                         <div class="single-products"> *@
+    @*                             <div class="productinfo text-center"> *@
+    @*                                 <img src="images/home/recommend2.jpg" alt="" /> *@
+    @*                                 <h2>$56</h2> *@
+    @*                                 <p>Easy Polo Black Edition</p> *@
+    @*                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button> *@
+    @*                             </div> *@
+    @*                         </div> *@
+    @*                     </div> *@
+    @*                 </div> *@
+    @*                 <div class="col-sm-4"> *@
+    @*                     <div class="product-image-wrapper"> *@
+    @*                         <div class="single-products"> *@
+    @*                             <div class="productinfo text-center"> *@
+    @*                                 <img src="images/home/recommend3.jpg" alt="" /> *@
+    @*                                 <h2>$56</h2> *@
+    @*                                 <p>Easy Polo Black Edition</p> *@
+    @*                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button> *@
+    @*                             </div> *@
+    @*                         </div> *@
+    @*                     </div> *@
+    @*                 </div> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*         <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev"> *@
+    @*             <i class="fa fa-angle-left"></i> *@
+    @*         </a> *@
+    @*         <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next"> *@
+    @*             <i class="fa fa-angle-right"></i> *@
+    @*         </a> *@
+    @*     </div> *@
+    @* </div><!--/recommended_items--> *@
+
 </div>
+

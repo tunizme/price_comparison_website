@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using price_comparison.Repository;
 
 namespace price_comparison.Controllers;
@@ -15,10 +16,9 @@ public class ProductController : Controller
     {
         return View();
     }
-    public IActionResult Details(int Id)
+    public IActionResult Details(int? Id)
     {
-        if(Id==null) return RedirectToAction("Index");
-        var product = _dataContext.Products.FirstOrDefault(p => p.Id == Id);
+        var product = _dataContext.Products.Include(p=>p.Prices).FirstOrDefault(p => p.Id == Id);
         return View(product);
     }
 }

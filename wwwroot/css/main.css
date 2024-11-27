@@ -8,7 +8,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
   font-weight:400px;
 }
@@ -70,22 +69,6 @@ a#scrollUp i{
 .header_top {
   background: none repeat scroll 0 0 #F0F0E9;
 }
-
-.contactinfo ul li:first-child{
-    margin-left: -15px;
-}
-
-.contactinfo ul li a{
-  font-size: 12px;
-  color: #696763;
-  font-family: 'Roboto', sans-serif;
-}
-
-
-.contactinfo ul li a:hover{
-	background:inherit;
-}
-
 
 .social-icons ul li a {
   border: 0 none;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="fd36f642-c5c8-4808-bb83-ed189002e987" name="@TUNIZME Mapping">
+      <data-sources db="00581415-6b87-4669-b794-c12472eb09a2" />
+      <scope>
+        <node kind="database" qname="Price_Comparison" />
+      </scope>
+    </mapping>
+    <mapping uuid="db2de744-bb3c-48ae-93c6-1e89d66e57fe" name="Price_Comparison@TUNIZME Mapping">
+      <data-sources db="ee335621-4e6e-4534-835d-876a1fcfcda3" />
+    </mapping>
+  </component>
+</project>

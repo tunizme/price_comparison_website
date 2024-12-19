@@ -33,8 +33,9 @@
         </div>
         <div class="form-group">
             <label>Image</label>
-            <input asp-for="ImageUpload" class="form-control">
+            <input asp-for="ImageUpload" id="ImageUpload" class="form-control">
             <span asp-validation-for="ImageUpload" class="text-danger"> </span>
+            <img id="img_preview" class="pt-2" alt="" />
         </div>
         <div class="form-group">
             <button class="btn btn-primary">Create</button>
@@ -50,8 +51,16 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <script>
     CKEDITOR.replace( 'Description', { 'versionCheck': false });
 </script>
+
+<script>
+    $("#ImageUpload").change(function() {
+        readURL(this)
+    })
+</script>
+

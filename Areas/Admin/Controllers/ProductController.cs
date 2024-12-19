@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,13 +10,14 @@ namespace price_comparison.Areas.Admin.Controllers;
 
 public class ScrapedProduct
 {
-    public string Price { get; set; }
+    public Decimal Price { get; set; }
     public string ProductName { get; set; }
     public string ShopUrl { get; set; }
-    public string ShopeName { get; set; }
+    public string ShopName { get; set; }
 }
 
 [Area("Admin")]
+
 public class ProductController : Controller
 {
     private readonly DataContext _dataContext;
@@ -26,12 +28,13 @@ public class ProductController : Controller
         _dataContext = dataContext;
         _webHostEnvironment = webHostEnvironment;
     }
-
+  
     public async Task<IActionResult> Index()
     {
         return View(await _dataContext.Products.OrderByDescending(p => p.Id).Include(p => p.Category)
             .Include(p => p.Brand).ToListAsync());
     }
+
 
     [HttpGet]
     public IActionResult Create()
@@ -40,7 +43,6 @@ public class ProductController : Controller
         ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name");
         return View();
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(ProductModel product)
@@ -76,54 +78,42 @@ public class ProductController : Controller
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    System.Console.WriteLine(response.StatusCode);
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         var scrapedData =
                             System.Text.Json.JsonSerializer.Deserialize<List<ScrapedProduct>>(jsonResponse);
-
+                        System.Console.WriteLine("Scraped Product===============");
                         foreach (var item in scrapedData)
                         {
-                            System.Console.WriteLine(item.Price);
-                            System.Console.WriteLine(item.ShopeName);
-                            System.Console.WriteLine(item.ShopUrl);
-                            string rawPrice = item.Price.ToString()
-                                .Replace("&nbsp", "")
-                                .Replace("₫", "")
-                                .Replace(".", "")
-                                .Trim();
-
-                            System.Console.WriteLine(rawPrice);
-                            if (decimal.TryParse(rawPrice, out decimal priceValue))
-                            {
-                                System.Console.WriteLine("Sucess----------------------");
                                 productPrices.Add(new ProductPriceModel
                                 {
-                                    ProductId = product.Id, // Gắn với sản phẩm vừa lưu
-                                    Price = priceValue,
-                                    ShopName = item.ShopeName,
+                                    ProductId = product.Id,
+                                    Price = item.Price,
+                                    ShopName = item.ShopName,
                                     ShopUrl = item.ShopUrl
                                 });
-                            }
                         }
                     }
                     else
                     {
-                        System.Console.WriteLine("Bad request");
+                        System.Console.WriteLine("Scraped else Product===============");
+
                         TempData["error"] = "Không thể lấy dữ liệu giá từ API!";
                     }
                 }
                 catch (Exception ex)
                 {
-                    System.Console.WriteLine("sdfjvsdjgsevhj");
+                    System.Console.WriteLine("Scraped Exception Product===============");
+                    System.Console.WriteLine(ex.Message);
+
                     TempData["error"] = $"Lỗi trong quá trình scraping: {ex.Message}";
                 }
             }
 
-            // Gắn danh sách giá vào sản phẩm
             product.Prices = productPrices;
-            System.Console.WriteLine(productPrices);
-            // Lưu sản phẩm và danh sách giá cùng lúc
+
             _dataContext.Add(product);
             await _dataContext.SaveChangesAsync();
 
@@ -134,14 +124,100 @@ public class ProductController : Controller
         TempData["error"] = "Đã xảy ra lỗi! Vui lòng kiểm tra lại.";
         return View(product);
     }
-    public async Task<IActionResult> Edit(int? id)
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
     {
-        ProductModel product = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+        ProductModel product = await _dataContext.Products
+            .Include(p => p.Prices)
+            .FirstOrDefaultAsync(p => p.Id == id);
         ViewBag.Categories = new SelectList(_dataContext.Categories, "Id", "Name", product.CategoryId);
         ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name", product.BrandId);
         
         return View(product);
-        
     }
-   
+    
+ 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, ProductModel product, string deletedPrices)
+    {
+        ViewBag.Categories = new SelectList(_dataContext.Categories, "Id", "Name", product.CategoryId);
+        ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name", product.BrandId);
+        var productExists = await _dataContext.Products
+            .Include(p => p.Prices) // Bao gồm danh sách giá
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (productExists == null)
+        {
+            TempData["error"] = "Sản phẩm không tồn tại!";
+            return RedirectToAction("Index");
+        }
+        
+        if (ModelState.IsValid)
+        {
+           
+            if (product.ImageUpload != null)
+            {
+                string upLoadPath = Path.Combine(_webHostEnvironment.WebRootPath, "media/products");
+                string imageName = Guid.NewGuid().ToString() + "_" + product.ImageUpload.FileName;
+                string filePath = Path.Combine(upLoadPath, imageName);
+                string oldFilePath = Path.Combine(upLoadPath, productExists.Image);
+                try
+                {
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+                FileStream fs = new FileStream(filePath, FileMode.Create);
+                await product.ImageUpload.CopyToAsync(fs);
+                fs.Close();
+                productExists.Image = imageName;
+            }
+            var deletedPriceIds = !string.IsNullOrEmpty(deletedPrices)
+                ? deletedPrices.Split(',').Select(int.Parse).ToList()
+                : new List<int>();
+
+            productExists.Prices = productExists.Prices
+                .Where(price => !deletedPriceIds.Contains(price.Id))
+                .ToList();
+
+            productExists.Name = product.Name;
+            productExists.Description = product.Description;
+            productExists.CategoryId = product.CategoryId;
+            productExists.BrandId = product.BrandId;
+
+
+            _dataContext.Update(productExists);
+            await _dataContext.SaveChangesAsync();
+
+            TempData["success"] = "Tạo sản phẩm và cập nhật giá thành công!";
+            return RedirectToAction("Index");
+        }
+
+        TempData["error"] = "Đã xảy ra lỗi! Vui lòng kiểm tra lại.";
+        return View(product);
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        ProductModel product = await _dataContext.Products.FindAsync(id);
+        if (!string.IsNullOrEmpty(product.Image))
+        {
+            String upLoadPath = Path.Combine(_webHostEnvironment.WebRootPath, "media/products");
+            string oldFilePath = Path.Combine(upLoadPath, product.Image);
+            if (System.IO.File.Exists(oldFilePath))
+            {
+                System.IO.File.Delete(oldFilePath);
+            }
+        }
+        _dataContext.Products.Remove(product);
+        await _dataContext.SaveChangesAsync();
+        return RedirectToAction("Index");
+    }
 }

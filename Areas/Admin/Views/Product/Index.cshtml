@@ -3,30 +3,32 @@
     ViewData["title"] = "Product Listed";
 }
 <h3>List Products</h3>
-<a asp-area="Admin" asp-action="Create" asp-controller="Product" class="btn-sm">Create product</a>
+<a asp-area="Admin" asp-action="Create" asp-controller="Product" class="btn-lg btn btn-primary">Create product</a>
 <table class="table">
     <thead>
     <tr>
         <th scope="col">#</th>
         <th scope="col">Product Name</th>
         <th scope="col">Product Description</th>
+        <th scope="col">Product Image</th>
         <th scope="col">Product Category</th>
         <th scope="col">Product Brand</th>
+        <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
     {
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">@item.Id</th>
             <td>@item.Name</td>
             <td>@Html.Raw(item.Description)</td>
+            <td><img src="/media/products/@item.Image" alt="" width="100"></td>
             <td>@item.Category.Name </td>
             <td>@item.Brand.Name</td>
-            <td>
-                <a asp-action="Edit" class="btn-warning btn-sm" asp-controller="Product"
-                   asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Delete" class="btn-danger btn-warning" asp-controller="Product" asp-route-id="@item.Id">Delete</a>
+            <td class="d-flex gap-2">
+                <a asp-action="Edit" class="btn btn-warning btn-lg" asp-controller="Product" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Delete" class="btn btn-danger btn-lg" asp-controller="Product" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
     }

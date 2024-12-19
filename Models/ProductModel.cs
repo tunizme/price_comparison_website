@@ -31,5 +31,5 @@ public class ProductModel
 
     public List<ProductPriceModel> Prices { get; set; }
 
-    [NotMapped] [FileExtension] public IFormFile ImageUpload { get; set; }
+    [NotMapped] [FileExtension] public IFormFile? ImageUpload { get; set; }
 }

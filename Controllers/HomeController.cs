@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using price_comparison.Models;
 using price_comparison.Repository;
 
@@ -18,7 +19,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var products = _dataContext.Products.ToList();
+        var products = _dataContext.Products.Include("Brand").ToList();
         return View(products);
     }
 

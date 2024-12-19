@@ -13,7 +13,7 @@ public class CategoryController : Controller
     {
         _dataContext = dataContext;
     }
-
+    
     public async Task<IActionResult> Index(String Slug = "")
     {
         CategoryModel categoryModel = _dataContext.Categories.FirstOrDefault(c => c.Slug == Slug);

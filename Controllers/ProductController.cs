@@ -12,13 +12,13 @@ public class ProductController : Controller
     {
         _dataContext = dataContext;
     }
-    public IActionResult Index()
+    public IActionResult Details(int id)
     {
-        return View();
-    }
-    public IActionResult Details(int? Id)
-    {
-        var product = _dataContext.Products.Include(p=>p.Prices).FirstOrDefault(p => p.Id == Id);
+        var product = _dataContext.Products.Include(p=>p.Prices).FirstOrDefault(p => p.Id == id);
+        if (product == null)
+        {
+            return NotFound();
+        }
         return View(product);
     }
 }

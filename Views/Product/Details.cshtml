@@ -4,12 +4,11 @@
     <div class="product-details"><!--product-details-->
         <div class="col-sm-3">
             <div class="view-product">
-                <img src="/media/products/@Model.Image" alt="" width="100%" height="100"/>
+                <img src="/media/products/@Model.Image" alt=""/>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="product-information"><!--/product-information-->
-                <img src="images/product-details/new.jpg" class="newarrival" alt=""/>
                 <h2>@Model.Name</h2>
                 <p>Ra mắt vào 2023, cấu hình Apple iPhone 15 Pro Max gồm dung lượng pin 4441mAh, màn hình 6.7", độ phân
                     giải 2796 x 1290pixels, camera selfie 12MP và camera chính 48 + 12 + 12MP. Giá Apple iPhone 15 Pro
@@ -20,19 +19,22 @@
 
 
     <div class="product-price">
+        <h2 class="title text-center">Giá so sánh</h2>
         @foreach (var productPrice in Model.Prices)
         {
-            <div class="row">
+            <div class="row price-container">
                 <div class="col-sm-6">
-                    <span>
+                    <span class="shop-name">
                         @productPrice.ShopName
                     </span>
-                </div> <div class="col-sm-3">
-                    <h4>
+                </div>
+                <div class="col-sm-3">
+                    <h4 class="product-price">
                         @productPrice.Price.ToString("#,##0") đ
                     </h4>
-                </div> <div class="col-sm-3">
-                    <a href="@productPrice.ShopUrl" target="_blank">
+                </div>
+                <div class="col-sm-3 d-flex justify-content-end">
+                    <a href="@productPrice.ShopUrl" target="_blank" class="btn btn-primary">
                         Xem giá mới nhất
                     </a>
                 </div>

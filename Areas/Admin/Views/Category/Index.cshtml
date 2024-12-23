@@ -1,7 +1,27 @@
 ﻿@model IEnumerable<CategoryModel>
 @{
     ViewData["title"] = "Category Listed";
+
+    Paginate pager = new Paginate();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+</head>
+<body>
+
 <h3>List Category</h3>
 <a asp-area="Admin" asp-action="Create" asp-controller="Category" class="btn-lg btn btn-primary">Create Category</a>
 <table class="table">
@@ -39,3 +59,6 @@
     }
     </tbody>
 </table>
+<partial name="_Paging" model="pager"/>
+</body>
+</html>

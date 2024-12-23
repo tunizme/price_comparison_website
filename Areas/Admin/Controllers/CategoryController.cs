@@ -15,9 +15,21 @@ public class CategoryController : Controller
         _dataContext = dataContext;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int pg = 1)
     {
-        return View(await _dataContext.Categories.OrderByDescending(p => p.Id).ToListAsync());
+        List<CategoryModel> categories = await _dataContext.Categories.ToListAsync();
+        
+        const int pageSize = 10;
+        if (pg < 1)
+        {
+            pg = 1;
+        }
+        int recsCount = categories.Count();
+        var pager = new Paginate(recsCount,pg,pageSize);
+        int recSkip = (pg - 1) * pageSize;
+        var data = categories.Skip(recSkip).Take(pager.PageSize).ToList();
+        ViewBag.Pager = pager;
+        return View(data);
     }
 
     [HttpGet]

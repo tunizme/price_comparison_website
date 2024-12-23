@@ -1,6 +1,13 @@
 ﻿@model IEnumerable<ProductModel>
 @{
     ViewData["title"] = "Product Listed";
+    Paginate pager = new Paginate();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 <h3>List Products</h3>
 <a asp-area="Admin" asp-action="Create" asp-controller="Product" class="btn-lg btn btn-primary">Create product</a>
@@ -35,3 +42,4 @@
 
     </tbody>
 </table>
+<partial name="_Paging" model="pager"/>

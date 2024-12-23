@@ -9,14 +9,28 @@ namespace price_comparison.Areas.Admin.Controllers;
 public class BrandController : Controller
 {
     private readonly DataContext _dataContext;
-    
+
     public BrandController(DataContext dataContext)
     {
         _dataContext = dataContext;
     }
-      public async Task<IActionResult> Index()
+
+    public async Task<IActionResult> Index(int pg = 1)
     {
-        return View(await _dataContext.Brands.OrderByDescending(p => p.Id).ToListAsync());
+        List<BrandModel> brands = await _dataContext.Brands.ToListAsync();
+
+        const int pageSize = 10;
+        if (pg < 1)
+        {
+            pg = 1;
+        }
+
+        int recsCount = brands.Count();
+        var pager = new Paginate(recsCount, pg, pageSize);
+        int recSkip = (pg - 1) * pageSize;
+        var data = brands.Skip(recSkip).Take(pager.PageSize).ToList();
+        ViewBag.Pager = pager;
+        return View(data);
     }
 
     [HttpGet]
@@ -79,6 +93,7 @@ public class BrandController : Controller
         {
             return BadRequest(error: "Brand slug already exists");
         }
+
         return View(brand);
     }
 

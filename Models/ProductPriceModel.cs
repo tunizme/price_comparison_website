@@ -9,16 +9,16 @@ public class ProductPriceModel
     public int Id { get; set; }
 
     [Required]
-    public int ProductId { get; set; } // Liên kết tới sản phẩm
+    public int ProductId { get; set; } 
 
     [ForeignKey("ProductId")]
     public ProductModel Product { get; set; }
 
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal Price { get; set; } // Giá sản phẩm
+    public decimal Price { get; set; } 
 
     [Required]
-    public string ShopName { get; set; } // Tên shop bán sản phẩm
+    public string ShopName { get; set; }
 
     [Required]
     public string ShopUrl { get; set; } // Đường dẫn sản phẩm tại shop

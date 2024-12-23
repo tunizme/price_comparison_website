@@ -12,13 +12,22 @@ public class ProductController : Controller
     {
         _dataContext = dataContext;
     }
+
     public IActionResult Details(int id)
     {
-        var product = _dataContext.Products.Include(p=>p.Prices).FirstOrDefault(p => p.Id == id);
+        var product = _dataContext.Products.Include(p => p.Prices).FirstOrDefault(p => p.Id == id);
         if (product == null)
         {
             return NotFound();
         }
+
+        var recommendedItems = _dataContext.Products
+            .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).Include(p => p.Prices)
+            .Take(6)
+            .ToList();
+        
+        ViewData["RecommendedItems"] = recommendedItems;
+
         return View(product);
     }
 }

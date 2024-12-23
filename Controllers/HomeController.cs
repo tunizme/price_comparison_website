@@ -19,7 +19,48 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var products = _dataContext.Products.Include("Brand").ToList();
+        var products = _dataContext.Products.Include(p => p.Prices).Take(8);
+        var smartphone = _dataContext.Products
+            .Where(p => p.Category.Name == "Điện thoại")
+            .Include(p => p.Prices)
+            .OrderBy(p => Guid.NewGuid())  
+            .Take(16)
+            .ToList();
+        
+        var laptop = _dataContext.Products
+            .Where(p => p.Category.Name == "Laptop")
+            .Include(p => p.Prices)
+            .OrderBy(p => Guid.NewGuid())
+            .Take(16)
+            .ToList();
+        
+        var screen = _dataContext.Products
+            .Where(p => p.Category.Name == "Màn hình")
+            .Include(p => p.Prices)
+            .OrderBy(p => Guid.NewGuid())
+            .Take(16)
+            .ToList();
+        
+        var smartwatch = _dataContext.Products
+            .Where(p => p.Category.Name == "Đồng hồ")
+            .Include(p => p.Prices)
+            .OrderBy(p => Guid.NewGuid())
+            .Take(16)
+            .ToList();
+        
+         var tivi = _dataContext.Products
+            .Where(p => p.Category.Name == "Tivi")
+            .Include(p => p.Prices)
+            .OrderBy(p => Guid.NewGuid())
+            .Take(16)
+            .ToList();
+        
+        ViewData["smartphone"] = smartphone;
+        ViewData["laptop"] = laptop;
+        ViewData["screen"] = screen;
+        ViewData["smartwatch"] = smartwatch;
+        ViewData["tivi"] = tivi;
+
         return View(products);
     }
 

@@ -4,7 +4,7 @@
 }
 
 <h4>Edit Product</h4>
-<div class="col-md-9">
+<div class="col-md-12">
     <form asp-action="Edit" enctype="multipart/form-data">
         <input type="hidden" name="Id" value="@Model.Id" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -86,19 +86,15 @@
     // Bắt sự kiện click nút Delete
     document.addEventListener('click', function (e) {
         if (e.target && e.target.classList.contains('btn-delete')) {
-            // Xác định hàng cần xóa
             const row = e.target.closest('tr');
             const priceId = row.getAttribute('data-id');
 
-            // Thêm Id vào input ẩn nếu chưa tồn tại
             const deletedPricesInput = document.getElementById('deletedPrices');
             let deletedIds = deletedPricesInput.value ? deletedPricesInput.value.split(',') : [];
             if (!deletedIds.includes(priceId)) {
                 deletedIds.push(priceId);
                 deletedPricesInput.value = deletedIds.join(',');
             }
-
-            // Xóa hàng khỏi giao diện
             row.remove();
         }
     });

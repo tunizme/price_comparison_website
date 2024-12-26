@@ -22,8 +22,10 @@
 </head>
 <body>
 
-<h3>List Category</h3>
-<a asp-area="Admin" asp-action="Create" asp-controller="Category" class="btn-lg btn btn-primary">Create Category</a>
+<h3>List Categories</h3>
+<div class="m-5">
+    <a asp-area="Admin" asp-action="Create" asp-controller="Category" class="btn-lg btn btn-primary">Create Category</a>
+</div>
 <table class="table">
     <thead>
     <tr>
@@ -31,7 +33,6 @@
         <th scope="col">Category Name</th>
         <th scope="col">Category Description</th>
         <th scope="col">Category Slug</th>
-        <th scope="col">Category Status</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
@@ -43,17 +44,11 @@
             <td>@item.Name</td>
             <td>@item.Description</td>
             <td>@item.Slug </td>
-            <td>@if (item.Status == 1)
-                {
-                    <span class="text-success text">Hiển thị</span>
-                }
-                else
-                {
-                    <span class="text-danger text">Ẩn</span>
-                }</td>
-            <td class="d-flex gap-2">
-                <a asp-action="Edit" class="btn btn-warning btn-lg" asp-controller="Category" asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Delete" class="btn btn-danger btn-lg" asp-controller="Category" asp-route-id="@item.Id">Delete</a>
+            <td>
+                <div>
+                    <a asp-action="Edit" class="btn btn-warning btn" asp-controller="Category" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Delete" class="btn btn-danger btn" asp-controller="Category" asp-route-id="@item.Id">Delete</a>
+                </div>
             </td>
         </tr>
     }

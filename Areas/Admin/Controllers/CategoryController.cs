@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Globalization;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using price_comparison.Models;
 using price_comparison.Repository;
@@ -15,9 +17,25 @@ public class CategoryController : Controller
         _dataContext = dataContext;
     }
 
+    private string RemoveDiacritics(string text)
+    {
+        string normalizedString = text.Normalize(NormalizationForm.FormD);
+        StringBuilder sb = new StringBuilder();
+
+        foreach (char c in normalizedString)
+        {
+            if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString().Normalize(NormalizationForm.FormC);
+    }
+    
     public async Task<IActionResult> Index(int pg = 1)
     {
-        List<CategoryModel> categories = await _dataContext.Categories.ToListAsync();
+        List<CategoryModel> categories = await _dataContext.Categories.OrderByDescending(p => p.Id).ToListAsync();
         
         const int pageSize = 10;
         if (pg < 1)
@@ -44,22 +62,20 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            category.Slug = category.Slug ?? category.Name.Replace(" ", "_");
+            category.Slug = RemoveDiacritics(category.Name).Replace(" ", "-");
             var slug = await _dataContext.Categories.FirstOrDefaultAsync(c => c.Slug == category.Slug);
             if (slug != null)
             {
-                ModelState.AddModelError(nameof(category.Slug), "Category slug already exists");
+                ModelState.AddModelError("", "Danh mục đã tồn tại!");
                 return View(category);
             }
-
+            
             _dataContext.Add(category);
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            TempData["success"] = "Tạo danh mục thành công!";
+            return RedirectToAction("Index");
         }
-        else
-        {
-            return BadRequest(error: "Category slug already exists");
-        }
+        return View(category);
     }
 
     [HttpGet]
@@ -76,21 +92,18 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            category.Slug = category.Name.Replace(" ", "_");
+            category.Slug = RemoveDiacritics(category.Name).Replace(" ", "-");
             var slug = await _dataContext.Categories.FirstOrDefaultAsync(c => c.Slug == category.Slug);
             if (slug != null)
             {
-                ModelState.AddModelError(nameof(category.Slug), "Category slug already exists");
+                ModelState.AddModelError("", "Danh mục đã tồn tại");
                 return View(category);
             }
 
             _dataContext.Update(category);
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        else
-        {
-            return BadRequest(error: "Category slug already exists");
+            TempData["success"] = "Chỉnh sửa danh mục thành công!";
+            return RedirectToAction("Index");
         }
         return View(category);
     }
@@ -100,6 +113,7 @@ public class CategoryController : Controller
         CategoryModel category = await _dataContext.Categories.FirstOrDefaultAsync(p => p.Id == id);
         _dataContext.Categories.Remove(category);
         await _dataContext.SaveChangesAsync();
+        TempData["success"] = "Xoá danh mục thành công!";
         return RedirectToAction("Index");
     }
 }

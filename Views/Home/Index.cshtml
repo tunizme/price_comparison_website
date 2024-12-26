@@ -1,31 +1,210 @@
 ﻿@model IEnumerable<ProductModel>
-<div class="features_items">
-    <h2 class="title text-center">Features Items</h2>
+<div class="features_items mb-5">
+    <h2 class="title text-center">Xu hướng thịnh hành</h2>
     @foreach (var item in Model)
     {
+        var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+        var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
         <div class="col-md-3 mb-5">
             <div class="card">
                 <img src="media/products/@item.Image" class="card-img-top" alt="Apple iPhone 15 Pro Max">
                 <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">@item.Name</h5>
+                    <h5 class="card-title fw-bold fw-bold">@item.Name</h5>
                     <div class="mb-3">
-                        <span class="text-danger fw-bold fs-5">24.690.000 - 50.390.000 đ</span>
+                        <span class="text-danger fw-bold">
+                            @minPrice.ToString("#,##0")đ -
+                            @maxPrice.ToString("#,##0")đ
+                        </span>
                     </div>
-                    <a asp-action="Details" asp-controller="Product" asp-route-Id="@item.Id" class="btn btn-info text-white fw-bold">So sánh giá</a>
+                    <a asp-action="Details" asp-controller="Product" asp-route-Id="@item.Id"
+                       class="btn-price btn btn-info text-white fw-bold">So sánh giá</a>
                 </div>
             </div>
         </div>
     }
 </div>
-<div class="category-tab"><!--category-tab-->
-    <div class="col-sm-12">
 
+<div class="recommended_items mb-5">
+    <h2 class="title text-center">Điện Thoại</h2>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @if (ViewData["smartphone"] is List<ProductModel> smartphone && smartphone.Any())
+            {
+                foreach (var item in smartphone)
+                {
+                    var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+                    var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
+                    <div class="swiper-slide">
+                        <div class="card text-center">
+                            <img src="/media/products/@item.Image" class="card-img-top" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@item.Name</h5>
+                                <span class="text-danger fw-bold">
+                                    @minPrice.ToString("#,##0")đ -
+                                    @maxPrice.ToString("#,##0")đ
+                                </span>
+                                <a href="/Product/Details/@item.Id" class="btn-price btn btn-primary mt-4">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Navigation buttons -->
+        
+        <div class="swiper-pagination"></div>
     </div>
+</div>
 
-</div><!--/category-tab-->
+<div class="recommended_items mb-5">
+    <h2 class="title text-center">Laptop</h2>
+    <div class="swiper-container">
+        <div class="swiper-wrapper m-3">
+            @if (ViewData["laptop"] is List<ProductModel> laptop && laptop.Any())
+            {
+                foreach (var item in laptop)
+                {
+                    var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+                    var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
+                    <div class="swiper-slide">
+                        <div class="card text-center">
+                            <img src="/media/products/@item.Image" class="card-img-top" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@item.Name</h5>
+                                <span class="text-danger fw-bold">
+                                    @minPrice.ToString("#,##0")đ -
+                                    @maxPrice.ToString("#,##0")đ
+                                </span>
+                                <a href="/Product/Details/@item.Id" class="btn btn-price btn-primary mt-4">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Navigation buttons -->
+        
+    </div>
+</div>
 
-<div class="recommended_items"><!--recommended_items-->
-    <h2 class="title text-center">recommended items</h2>
-</div><!--/recommended_items-->
+<div class="recommended_items mb-5">
+    <h2 class="title text-center">Màn hình</h2>
+    <div class="swiper-container">
+        <div class="swiper-wrapper m-3">
+            @if (ViewData["screen"] is List<ProductModel> screen && screen.Any())
+            {
+                foreach (var item in screen)
+                {
+                    var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+                    var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
+                    <div class="swiper-slide">
+                        <div class="card text-center">
+                            <img src="/media/products/@item.Image" class="card-img-top" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@item.Name</h5>
+                                <span class="text-danger fw-bold">
+                                    @minPrice.ToString("#,##0")đ -
+                                    @maxPrice.ToString("#,##0")đ
+                                </span>
+                                <a href="/Product/Details/@item.Id" class="btn btn-price btn-primary mt-4">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Navigation buttons -->
+        
+    </div>
+</div>
+
+<div class="recommended_items mb-5">
+    <h2 class="title text-center">Tivi</h2>
+    <div class="swiper-container">
+        <div class="swiper-wrapper m-3">
+            @if (ViewData["tivi"] is List<ProductModel> tivi && tivi.Any())
+            {
+                foreach (var item in tivi)
+                {
+                    var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+                    var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
+                    <div class="swiper-slide">
+                        <div class="card text-center">
+                            <img src="/media/products/@item.Image" class="card-img-top" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@item.Name</h5>
+                                <span class="text-danger fw-bold">
+                                         @minPrice.ToString("#,##0")đ -
+                                    @maxPrice.ToString("#,##0")đ
+                                    </span>
+                                <a href="/Product/Details/@item.Id" class="btn btn-price btn-primary mt-4">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Navigation buttons -->
+        
+    </div>
+</div>
+
+<div class="recommended_items mb-5">
+    <h2 class="title text-center">Smart Watch</h2>
+    <div class="swiper-container">
+        <div class="swiper-wrapper m-3">
+            @if (ViewData["smartwatch"] is List<ProductModel> smartwatch && smartwatch.Any())
+            {
+                foreach (var item in smartwatch)
+                {
+                    var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+                    var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
+                    <div class="swiper-slide">
+                        <div class="card text-center">
+                            <img src="/media/products/@item.Image" class="card-img-top" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@item.Name</h5>
+                                <span class="text-danger fw-bold">
+                                         @minPrice.ToString("#,##0")đ -
+                                    @maxPrice.ToString("#,##0")đ
+                                    </span>
+                                <a href="/Product/Details/@item.Id" class="btn btn-price btn-primary mt-4">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Navigation buttons -->
+        
+    </div>
+</div>
 
 
+<script>
+    const swiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 5,
+        spaceBetween: 15,
+        freeMode: true,
+        rewind: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>

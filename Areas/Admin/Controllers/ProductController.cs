@@ -32,7 +32,7 @@ public class ProductController : Controller
   
     public async Task<IActionResult> Index(int pg=1)
     {
-        List<ProductModel> products = await _dataContext.Products.Include(p=>p.Brand).Include(p => p.Category).ToListAsync();
+        List<ProductModel> products = await _dataContext.Products.Include(p=>p.Brand).Include(p => p.Category).Include(p=>p.Prices).OrderByDescending(p => p.Id).ToListAsync();
         
         const int pageSize = 10;
         if (pg < 1)
@@ -67,7 +67,7 @@ public class ProductController : Controller
             var slug = await _dataContext.Products.FirstOrDefaultAsync(p => p.Slug == product.Slug);
             if (slug != null)
             {
-                ModelState.AddModelError("", "Product already exists");
+                ModelState.AddModelError("", "Sản phẩm đã tồn tại");
                 return View(product);
             }
 
@@ -81,22 +81,20 @@ public class ProductController : Controller
                 fs.Close();
                 product.Image = imageName;
             }
-
-            // Scraping dữ liệu giá từ API
+            
             string apiUrl = $"http://127.0.0.1:5000/scrape?product_name={product.Name}";
             var productPrices = new List<ProductPriceModel>();
+            
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    System.Console.WriteLine(response.StatusCode);
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         var scrapedData =
                             System.Text.Json.JsonSerializer.Deserialize<List<ScrapedProduct>>(jsonResponse);
-                        System.Console.WriteLine("Scraped Product===============");
                         foreach (var item in scrapedData)
                         {
                                 productPrices.Add(new ProductPriceModel
@@ -110,16 +108,11 @@ public class ProductController : Controller
                     }
                     else
                     {
-                        System.Console.WriteLine("Scraped else Product===============");
-
                         TempData["error"] = "Không thể lấy dữ liệu giá từ API!";
                     }
                 }
                 catch (Exception ex)
                 {
-                    System.Console.WriteLine("Scraped Exception Product===============");
-                    System.Console.WriteLine(ex.Message);
-
                     TempData["error"] = $"Lỗi trong quá trình scraping: {ex.Message}";
                 }
             }
@@ -129,7 +122,7 @@ public class ProductController : Controller
             _dataContext.Add(product);
             await _dataContext.SaveChangesAsync();
 
-            TempData["success"] = "Tạo sản phẩm và cập nhật giá thành công!";
+            TempData["success"] = "Tạo sản phẩm thành công!";
             return RedirectToAction("Index");
         }
 
@@ -143,9 +136,9 @@ public class ProductController : Controller
         ProductModel product = await _dataContext.Products
             .Include(p => p.Prices)
             .FirstOrDefaultAsync(p => p.Id == id);
+        
         ViewBag.Categories = new SelectList(_dataContext.Categories, "Id", "Name", product.CategoryId);
         ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name", product.BrandId);
-        
         return View(product);
     }
     
@@ -156,8 +149,9 @@ public class ProductController : Controller
     {
         ViewBag.Categories = new SelectList(_dataContext.Categories, "Id", "Name", product.CategoryId);
         ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name", product.BrandId);
+        
         var productExists = await _dataContext.Products
-            .Include(p => p.Prices) // Bao gồm danh sách giá
+            .Include(p => p.Prices) 
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (productExists == null)
@@ -191,11 +185,8 @@ public class ProductController : Controller
                 fs.Close();
                 productExists.Image = imageName;
             }
-            var deletedPriceIds = !string.IsNullOrEmpty(deletedPrices)
-                ? deletedPrices.Split(',').Select(int.Parse).ToList()
-                : new List<int>();
 
-            if (product.Prices.IsNullOrEmpty())
+            if (productExists.Prices == null || !productExists.Prices.Any())
             {
                 string apiUrl = $"http://127.0.0.1:5000/scrape?product_name={product.Name}";
                 var productPrices = new List<ProductPriceModel>();
@@ -204,13 +195,12 @@ public class ProductController : Controller
                     try
                     {
                         HttpResponseMessage response = await client.GetAsync(apiUrl);
-                        System.Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
                             string jsonResponse = await response.Content.ReadAsStringAsync();
                             var scrapedData =
                                 System.Text.Json.JsonSerializer.Deserialize<List<ScrapedProduct>>(jsonResponse);
-                            System.Console.WriteLine("Scraped Product===============");
+                            
                             foreach (var item in scrapedData)
                             {
                                 productPrices.Add(new ProductPriceModel
@@ -224,22 +214,21 @@ public class ProductController : Controller
                         }
                         else
                         {
-                            System.Console.WriteLine("Scraped else Product===============");
-
                             TempData["error"] = "Không thể lấy dữ liệu giá từ API!";
                         }
                     }
                     catch (Exception ex)
                     {
-                        System.Console.WriteLine("Scraped Exception Product===============");
-                        System.Console.WriteLine(ex.Message);
-
                         TempData["error"] = $"Lỗi trong quá trình scraping: {ex.Message}";
                     }
                 }
 
                 productExists.Prices = productPrices;
             }
+            
+            var deletedPriceIds = !string.IsNullOrEmpty(deletedPrices)
+                ? deletedPrices.Split(',').Select(int.Parse).ToList()
+                : new List<int>();
             
             productExists.Prices = productExists.Prices
                 .Where(price => !deletedPriceIds.Contains(price.Id))
@@ -254,7 +243,7 @@ public class ProductController : Controller
             _dataContext.Update(productExists);
             await _dataContext.SaveChangesAsync();
 
-            TempData["success"] = "Tạo sản phẩm và cập nhật giá thành công!";
+            TempData["success"] = "Chỉnh sửa sản phẩm thành công!";
             return RedirectToAction("Index");
         }
 
@@ -276,6 +265,26 @@ public class ProductController : Controller
         }
         _dataContext.Products.Remove(product);
         await _dataContext.SaveChangesAsync();
+        TempData["success"] = "Xoá sản phẩm thành công!";
         return RedirectToAction("Index");
     }
+    
+    public async Task<IActionResult> Search(string searchString, int pg=1)
+    {
+        List<ProductModel> products = await _dataContext.Products.Where(p=>p.Name.Contains(searchString) || p.Description.Contains(searchString)).Include(p=>p.Brand).Include(p => p.Category).Include(p=>p.Prices).ToListAsync();
+            
+        const int pageSize = 10;
+        if (pg < 1)
+        {
+            pg = 1;
+        }
+        int recsCount = products.Count();
+        var pager = new Paginate(recsCount,pg,pageSize);
+        int recSkip = (pg - 1) * pageSize;
+        var data = products.Skip(recSkip).Take(pager.PageSize).ToList();
+        ViewBag.Pager = pager;
+        ViewBag.searchString = searchString;
+        return View(data);
+    }
+    
 }

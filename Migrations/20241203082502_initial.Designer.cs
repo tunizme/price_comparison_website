@@ -11,7 +11,7 @@ using price_comparison.Repository;
 namespace price_comparison.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241127122320_initial")]
+    [Migration("20241203082502_initial")]
     partial class initial
     {
         /// <inheritdoc />

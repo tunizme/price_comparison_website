@@ -7,18 +7,16 @@
                 <img src="/media/products/@Model.Image" alt=""/>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             <div class="product-information"><!--/product-information-->
                 <h2>@Model.Name</h2>
-                <p>Ra mắt vào 2023, cấu hình Apple iPhone 15 Pro Max gồm dung lượng pin 4441mAh, màn hình 6.7", độ phân
-                    giải 2796 x 1290pixels, camera selfie 12MP và camera chính 48 + 12 + 12MP. Giá Apple iPhone 15 Pro
-                    Max hiện nay là 28,690,000.00VND tại Hoang Ha Mobile</p>
+                <p>@Html.Raw(@Model.Description)</p>
             </div><!--/product-information-->
         </div>
     </div><!--/product-details-->
 
 
-    <div class="product-price">
+    <div class="product-price mb-5">
         <h2 class="title text-center">Giá so sánh</h2>
         @foreach (var productPrice in Model.Prices)
         {
@@ -42,10 +40,65 @@
         }
     </div>
 
-    <div class="recommended_items"><!--recommended_items-->
+    <div class="recommended_items mb-5 pt-5">
         <h2 class="title text-center">recommended items</h2>
-    
-    </div><!--/recommended_items-->
+        <div class="swiper-container">
+            <div class="swiper-wrapper m-3">
+                @if (ViewData["RecommendedItems"] is List<price_comparison.Models.ProductModel> recommendedItems && recommendedItems.Any())
+                {
+                    foreach (var item in recommendedItems)
+                    {
+                        var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+                        var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
+                        <div class="swiper-slide">
+                            <div class="card text-center">
+                                <img src="/media/products/@item.Image" class="card-img-top" alt="@item.Name">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <span class="text-danger fw-bold">
+                                        @minPrice.ToString("#,##0")đ -
+                                        @maxPrice.ToString("#,##0")đ
+                                    </span>
+                                    <a href="/Product/Details/@item.Id" class="btn btn-primary mt-4">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Không có sản phẩm gợi ý.</p>
+                }
 
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Navigation buttons -->
+
+
+            <!-- Pagination (dots) -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div><!--/recommended_items-->
 </div>
 
+<script>
+    const swiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 5,
+        spaceBetween: 15,
+        freeMode: true,
+        rewind: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: false,
+        },
+        autoplay: {
+            delay: 3000,
+        },
+    });
+</script>

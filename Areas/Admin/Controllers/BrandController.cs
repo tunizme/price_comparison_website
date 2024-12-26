@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Globalization;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using price_comparison.Models;
 using price_comparison.Repository;
@@ -15,9 +17,25 @@ public class BrandController : Controller
         _dataContext = dataContext;
     }
 
+    private string RemoveDiacritics(string text)
+    {
+        string normalizedString = text.Normalize(NormalizationForm.FormD);
+        StringBuilder sb = new StringBuilder();
+
+        foreach (char c in normalizedString)
+        {
+            if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString().Normalize(NormalizationForm.FormC);
+    }
+    
     public async Task<IActionResult> Index(int pg = 1)
     {
-        List<BrandModel> brands = await _dataContext.Brands.ToListAsync();
+        List<BrandModel> brands = await _dataContext.Brands.OrderByDescending(p => p.Id).ToListAsync();
 
         const int pageSize = 10;
         if (pg < 1)
@@ -45,22 +63,19 @@ public class BrandController : Controller
     {
         if (ModelState.IsValid)
         {
-            brand.Slug = brand.Name.Replace(" ", "_");
+            brand.Slug = RemoveDiacritics(brand.Name).Replace(" ", "-");
             var slug = await _dataContext.Brands.FirstOrDefaultAsync(c => c.Slug == brand.Slug);
             if (slug != null)
             {
-                ModelState.AddModelError(nameof(brand.Slug), "Brand slug already exists");
+                ModelState.AddModelError("", "Thương hiệu đã tồn tại!");
                 return View(brand);
             }
-
             _dataContext.Add(brand);
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            TempData["success"] = "Tạo thương hiệu thành công!";
+            return RedirectToAction("Index");
         }
-        else
-        {
-            return BadRequest(error: "Brand slug already exists");
-        }
+        return View(brand);
     }
 
     [HttpGet]
@@ -77,23 +92,19 @@ public class BrandController : Controller
     {
         if (ModelState.IsValid)
         {
-            brand.Slug = brand.Name.Replace(" ", "_");
+            brand.Slug = RemoveDiacritics(brand.Name).Replace(" ", "-");
             var slug = await _dataContext.Brands.FirstOrDefaultAsync(c => c.Slug == brand.Slug);
             if (slug != null)
             {
-                ModelState.AddModelError(nameof(brand.Slug), "Brand slug already exists");
+                ModelState.AddModelError(nameof(brand.Slug), "Thương hiệu đã tồn tại!");
                 return View(brand);
             }
-
+            
+            TempData["success"] = "Chỉnh sửa thương hiệu thành công!";
             _dataContext.Update(brand);
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
-        else
-        {
-            return BadRequest(error: "Brand slug already exists");
-        }
-
         return View(brand);
     }
 
@@ -102,6 +113,7 @@ public class BrandController : Controller
         BrandModel brand = await _dataContext.Brands.FirstOrDefaultAsync(p => p.Id == id);
         _dataContext.Brands.Remove(brand);
         await _dataContext.SaveChangesAsync();
+        TempData["success"] = "Xoá thương hiệu thành công!";
         return RedirectToAction("Index");
     }
 }

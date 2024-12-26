@@ -10,32 +10,42 @@
     }
 }
 <h3>List Products</h3>
-<a asp-area="Admin" asp-action="Create" asp-controller="Product" class="btn-lg btn btn-primary">Create product</a>
+<div class="m-5"><a asp-area="Admin" asp-action="Create" asp-controller="Product" class="btn-lg btn btn-primary">Create
+        product</a></div>
 <table class="table">
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Product Description</th>
-        <th scope="col">Product Image</th>
-        <th scope="col">Product Category</th>
-        <th scope="col">Product Brand</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Image</th>
+        <th scope="col">Category</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Price</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
     {
+        var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+        var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
         <tr>
             <th scope="row">@item.Id</th>
             <td>@item.Name</td>
-            <td>@Html.Raw(item.Description)</td>
+            <td class="description">@Html.Raw(item.Description)</td>
             <td><img src="/media/products/@item.Image" alt="" width="100"></td>
             <td>@item.Category.Name </td>
             <td>@item.Brand.Name</td>
-            <td class="d-flex gap-2">
-                <a asp-action="Edit" class="btn btn-warning btn-lg" asp-controller="Product" asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Delete" class="btn btn-danger btn-lg" asp-controller="Product" asp-route-id="@item.Id">Delete</a>
+            <td> @minPrice.ToString("#,##0")đ -
+                @maxPrice.ToString("#,##0")đ
+            </td>
+            <td>
+                <div class="d-flex gap-2">
+                    <a asp-action="Edit" class="btn btn-warning" asp-controller="Product"
+                       asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Delete" class="btn btn-danger" asp-controller="Product" asp-route-id="@item.Id">Delete</a>
+                </div>
             </td>
         </tr>
     }

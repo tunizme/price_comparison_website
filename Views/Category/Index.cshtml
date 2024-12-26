@@ -1,18 +1,32 @@
 ﻿@model IEnumerable<ProductModel>
+@{
+    Paginate pager = new Paginate();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
 <div class="col-sm-3">
     @Html.Partial("_SidebarPartial")
 </div>
 <div class="col-sm-9 padding-right">
-    <div class="features_items"><!--features_items-->
+    <div class="features_items pt-2"><!--features_items-->
         @foreach (var item in Model)
         {
+            var minPrice = item.Prices.Any() ? item.Prices.Min(p => p.Price) : 0;
+            var maxPrice = item.Prices.Any() ? item.Prices.Max(p => p.Price) : 0;
             <div class="col-md-4 mb-5">
                 <div class="card">
                     <img src="/media/products/@item.Image" class="card-img-top" alt="">
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">@item.Name</h5>
                         <div class="mb-3">
-                            <span class="text-danger fw-bold fs-5">24.690.000 - 50.390.000 đ</span>
+                            <span class="text-danger fw-bold">
+                                @minPrice.ToString("#,##0")đ -
+                                @maxPrice.ToString("#,##0")đ
+                            </span>
                         </div>
                         <a asp-action="Details" asp-controller="Product" asp-route-Id="@item.Id"
                            class="btn btn-info text-white fw-bold">So sánh giá</a>
@@ -21,4 +35,5 @@
             </div>
         }
     </div>
+    <partial name="_Paging" model="pager"/>
 </div>
